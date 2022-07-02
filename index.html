@@ -168,18 +168,25 @@
     <div class="article-meta">
       <a href="/2022/07/02/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/" class="article-date">
   <time datetime="2022-07-02T03:59:53.000Z" itemprop="datePublished">2022-07-02</time>
-</a>    
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">数据仓库</a>
+  </div>
+   
     </div>
       
     <div class="article-entry" itemprop="articleBody">
        
   <h1 id="数据仓库架构相关"><a href="#数据仓库架构相关" class="headerlink" title="数据仓库架构相关"></a>数据仓库架构相关</h1><p>   学习数仓必然是绕不开 架构和模型，虽然接触数仓两年了，但这方面的知识在实战依旧运用的很少，毕竟只是个搬砖的……架构和模型都是大佬们去敲定，这里所总结的就是一些比较通用并且与业务息息相关的理论知识。</p>
+<img src="/2022/07/02/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/1656754829173.png" class="" title="This is an example image">
+
 <p>​    先说说为什么需要分层架构，三个充分的理由： 清晰数据结构，方便做数据血缘关系的追踪；减少复杂开发，把复杂的问题简单化；屏蔽原始异常数据（类似脱敏的概念）</p>
 <p>​    <em><strong>数仓架构大概可以分为三层，ods层（数据准备层）,dw层（数据仓库）,dm层（数据服务层）</strong></em>,每个公司业务情况不一，所需要的技术资源不同，会在dw层和dm层做细分，下面以阿里巴巴数据仓库分层架构为例进行说明；</p>
 <p><em>ods 数据准备层</em>： 来源于爬虫或埋点日志等，为dwd层提供基础原始数据，从业务系统增量抽取，保留时间字段由业务需求决定，可以分表进行周期存储，数据不做清洗转换，与业务系统数据模型保持一直，按主题逻辑划分</p>
 <p><em>dwd 数据明细层</em>：为dw/dm层提供来源明细数据，提供业务系统细节数据的长期沉淀，为未来分析类需求的扩展提供历史数据支撑，模型与ods层一致，可按业务维度做分表</p>
 <p><em>dws 数据汇总层</em>：脏数据清洗，聚合增加派生事实</p>
-<p><em>dm层 （datamarket数据集市或ads层）</em>：数据应用层，可以是宽表，满足业务分析组的特定查询，多应用于数据挖掘和数据分析</p>
+<p><em>dm层 （datamarket数据集市）</em>：各类宽表，可满足业务分析组的特定查询，多应用于数据挖掘，尽量减少数据访问时的计算，建议分表存储，优化检索</p>
+<p>ads数据应用层：面向用户应用和分析需求，包括前端报表，分析图标以及OLAP等，保持数据量小，适用于维度建模，星型模型</p>
  
       <!-- reward -->
       
@@ -190,8 +197,6 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" rel="tag">数据仓库</a></li></ul>
-
     </footer>
   </div>
 
