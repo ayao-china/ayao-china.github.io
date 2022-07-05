@@ -31,7 +31,7 @@
 
   <title>
 数据仓库架构相关 - 学习 |
-Yume Shoka = Ayao = Ayao</title>
+Ayao's Blog = Ayao = Ayao</title>
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
   <div id="loading">
@@ -84,7 +84,7 @@ Yume Shoka = Ayao = Ayao</title>
       </div>
     </div>
     <ul class="menu">
-      <li class="item title"><a href="/" rel="start">Yume Shoka</a></li>
+      <li class="item title"><a href="/" rel="start">Ayao's Blog</a></li>
     </ul>
     <ul class="right">
       <li class="item theme">
@@ -99,14 +99,7 @@ Yume Shoka = Ayao = Ayao</title>
 
       </div>
       <div id="imgs" class="pjax">
-        <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipew28b65j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4baakhj20zk0m8h5q.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
-        </ul>
+          <img src="https://w.wallhaven.cc/full/wq/wallhaven-wq96vr.jpg">
       </div>
     </header>
     <div id="waves">
@@ -141,7 +134,7 @@ Yume Shoka = Ayao = Ayao</title>
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
     <meta itemprop="name" content="Ayao">
-    <meta itemprop="description" content="Ayao, 欢迎来到Ayao的小宇宙~">
+    <meta itemprop="description" content="Ayao, 有空常来玩~">
   </span>
 
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -151,16 +144,16 @@ Yume Shoka = Ayao = Ayao</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="数据仓库架构相关"><a href="#数据仓库架构相关" class="headerlink" title="数据仓库架构相关"></a>数据仓库架构相关</h1><p>   学习数仓必然是绕不开 架构和模型，虽然接触数仓两年了，但这方面的知识在实战依旧运用的很少，毕竟只是个搬砖的……架构和模型都是大佬们去敲定，这里所总结的就是一些比较通用并且与业务息息相关的理论知识。</p>
-<img src="/2022/07/02/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/1656754829173.png" class="" title="This is an example image">
-
-<p>​    先说说为什么需要分层架构，三个充分的理由： 清晰数据结构，方便做数据血缘关系的追踪；减少复杂开发，把复杂的问题简单化；屏蔽原始异常数据（类似脱敏的概念）</p>
-<p>​    <em><strong>数仓架构大概可以分为三层，ods层（数据准备层）,dw层（数据仓库）,dm层（数据服务层）</strong></em>,每个公司业务情况不一，所需要的技术资源不同，会在dw层和dm层做细分，下面以阿里巴巴数据仓库分层架构为例进行说明；</p>
-<p><em>ods 数据准备层</em>： 来源于爬虫或埋点日志等，为dwd层提供基础原始数据，从业务系统增量抽取，保留时间字段由业务需求决定，可以分表进行周期存储，数据不做清洗转换，与业务系统数据模型保持一直，按主题逻辑划分</p>
-<p><em>dwd 数据明细层</em>：为dw/dm层提供来源明细数据，提供业务系统细节数据的长期沉淀，为未来分析类需求的扩展提供历史数据支撑，模型与ods层一致，可按业务维度做分表</p>
+    <h1 id="数据仓库架构相关"><a class="anchor" href="#数据仓库架构相关">#</a> 数据仓库架构相关</h1>
+<p>学习数仓必然是绕不开 架构和模型，虽然接触数仓两年了，但这方面的知识在实战依旧运用的很少，毕竟只是个搬砖的...... 架构和模型都是大佬们去敲定，这里所总结的就是一些比较通用并且与业务息息相关的理论知识。</p>
+<p><img data-src="/2022/07/02/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3/1656754829173.png" class="" title="This is an example image"></p>
+<p>​	先说说为什么需要分层架构，三个充分的理由： 清晰数据结构，方便做数据血缘关系的追踪；减少复杂开发，把复杂的问题简单化；屏蔽原始异常数据（类似脱敏的概念）</p>
+<p>​	<em><strong>数仓架构大概可以分为三层，ods 层（数据准备层）,dw 层（数据仓库）,dm 层（数据服务层）</strong></em>, 每个公司业务情况不一，所需要的技术资源不同，会在 dw 层和 dm 层做细分，下面以阿里巴巴数据仓库分层架构为例进行说明；</p>
+<p><em>ods 数据准备层</em>： 来源于爬虫或埋点日志等，为 dwd 层提供基础原始数据，从业务系统增量抽取，保留时间字段由业务需求决定，可以分表进行周期存储，数据不做清洗转换，与业务系统数据模型保持一直，按主题逻辑划分</p>
+<p><em>dwd 数据明细层</em>：为 dw/dm 层提供来源明细数据，提供业务系统细节数据的长期沉淀，为未来分析类需求的扩展提供历史数据支撑，模型与 ods 层一致，可按业务维度做分表</p>
 <p><em>dws 数据汇总层</em>：脏数据清洗，聚合增加派生事实</p>
-<p><em>dm层 （datamarket数据集市）</em>：各类宽表，可满足业务分析组的特定查询，多应用于数据挖掘，尽量减少数据访问时的计算，建议分表存储，优化检索</p>
-<p>ads数据应用层：面向用户应用和分析需求，包括前端报表，分析图标以及OLAP等，保持数据量小，适用于维度建模，星型模型</p>
+<p><em>dm 层 （datamarket 数据集市）</em>：各类宽表，可满足业务分析组的特定查询，多应用于数据挖掘，尽量减少数据访问时的计算，建议分表存储，优化检索</p>
+<p>ads 数据应用层：面向用户应用和分析需求，包括前端报表，分析图标以及 OLAP 等，保持数据量小，适用于维度建模，星型模型</p>
 
   </div>
 
@@ -172,14 +165,22 @@ Yume Shoka = Ayao = Ayao</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-07-02 17:45:38" itemprop="dateModified" datetime="2022-07-02T17:45:38+08:00">2022-07-02</time>
+    <time title="修改时间：2022-07-05 21:44:32" itemprop="dateModified" datetime="2022-07-05T21:44:32+08:00">2022-07-05</time>
+  </span>
+  <span id="2022/07/02/数据仓库架构相关/" class="item leancloud_visitors" data-flag-title="数据仓库架构相关" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
   </span>
 </div>
 
       
 <div class="reward">
   <button><i class="ic i-heartbeat"></i> 赞赏</button>
-  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <p>扫码领取爱的号码牌~</p>
   <div id="qr">
       
       <div>
@@ -227,7 +228,7 @@ Yume Shoka = Ayao = Ayao</title>
     <div class="item left">
       
 
-  <a href="/2022/07/01/article1/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipewr8iypj20zk0m8b29.jpg" title="关于我">
+  <a href="/2022/07/01/article1/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;w.wallhaven.cc&#x2F;full&#x2F;rd&#x2F;wallhaven-rdwjj7.jpg" title="关于我">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> 生活</span>
   <h3>关于我</h3>
@@ -251,7 +252,7 @@ Yume Shoka = Ayao = Ayao</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3"><span class="toc-number">1.</span> <span class="toc-text">数据仓库架构相关</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%85%B3"><span class="toc-number">1.</span> <span class="toc-text"> 数据仓库架构相关</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
@@ -263,7 +264,7 @@ Yume Shoka = Ayao = Ayao</title>
   <img class="image" itemprop="image" alt="Ayao"
       data-src="/images/avatar.jpg">
   <p class="name" itemprop="name">Ayao</p>
-  <div class="description" itemprop="description">欢迎来到Ayao的小宇宙~</div>
+  <div class="description" itemprop="description">有空常来玩~</div>
 </div>
 
 <nav class="state">
@@ -363,7 +364,7 @@ Yume Shoka = Ayao = Ayao</title>
     <span class="with-love">
       <i class="ic i-sakura rotate"></i>
     </span>
-    <span class="author" itemprop="copyrightHolder">Ayao @ Yume Shoka</span>
+    <span class="author" itemprop="copyrightHolder">Ayao @ Ayao's Blog</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
@@ -377,8 +378,8 @@ Yume Shoka = Ayao = Ayao</title>
   var LOCAL = {
     path: '2022/07/02/数据仓库架构相关/',
     favicon: {
-      show: "（●´3｀●）やれやれだぜ",
-      hide: "(´Д｀)大変だ！"
+      show: "ayao",
+      hide: "ayao's blog"
     },
     search : {
       placeholder: "文章搜索",
