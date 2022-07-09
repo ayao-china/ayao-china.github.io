@@ -30,7 +30,7 @@
 
 
   <title>
-pandas数据处理 - python |
+pandas相关知识总结 - pandas - python |
 Ayao's Blog = 阿尧 = 有空常来玩~</title>
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -58,7 +58,7 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">pandas数据处理
+  <h1 itemprop="name headline">pandas相关知识总结
   </h1>
   
 <div class="meta">
@@ -74,7 +74,7 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>11</span>
+    <span>1.1k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -139,8 +139,11 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
 <div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 <i class="ic i-home"></i>
 <span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
-<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/python/" itemprop="item" rel="index" title="分类于 python"><span itemprop="name">python</span></a>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/python/" itemprop="item" rel="index" title="分类于 python"><span itemprop="name">python</span></a>
 <meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/python/pandas/" itemprop="item" rel="index" title="分类于 pandas"><span itemprop="name">pandas</span></a>
+<meta itemprop="position" content="2" /></span>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
@@ -159,7 +162,33 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="pandas-数据处理"><a class="anchor" href="#pandas-数据处理">#</a> pandas 数据处理</h1>
+    <h1 id="pandas相关知识总结"><a class="anchor" href="#pandas相关知识总结">#</a> pandas 相关知识总结</h1>
+<h2 id="前言"><a class="anchor" href="#前言">#</a> 前言</h2>
+<p>Pandas 是 Python 语言的一个扩展程序库，用于数据分析，广泛应用在学术、金融、统计学等各个数据分析领域。<br />
+Pandas 的主要数据结构是 Series （一维数据）与 DataFrame（二维数据）<br />
+基础教程参考：<span class="exturl" data-url="aHR0cHM6Ly93d3cucnVub29iLmNvbS9wYW5kYXMvcGFuZGFzLXR1dG9yaWFsLmh0bWw=">https://www.runoob.com/pandas/pandas-tutorial.html</span><br />
+ 以下为个人在工作中总结的扩展知识点</p>
+<h2 id="merge-函数"><a class="anchor" href="#merge-函数">#</a> merge 函数</h2>
+<p>参考文档：<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JydWNld29uZzA1MTYvYXJ0aWNsZS9kZXRhaWxzLzgyNzA3NDky">https://blog.csdn.net/brucewong0516/article/details/82707492</span><br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params"></span></span><br><span class="line"><span class="params">    left,</span></span><br><span class="line"><span class="params">    right,</span></span><br><span class="line"><span class="params">    how: <span class="built_in">str</span> = <span class="string">&quot;inner&quot;</span>,</span></span><br><span class="line"><span class="params">    on=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">    left_on=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">    right_on=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">    left_index: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    right_index: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    sort: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    suffixes=(<span class="params"><span class="string">&quot;_x&quot;</span>, <span class="string">&quot;_y&quot;</span></span>),</span></span><br><span class="line"><span class="params">    copy: <span class="built_in">bool</span> = <span class="literal">True</span>,</span></span><br><span class="line"><span class="params">    indicator: <span class="built_in">bool</span> = <span class="literal">False</span>,</span></span><br><span class="line"><span class="params">    validate=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params"></span>)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>left_index: 如果为 True，则使用左侧 DataFrame 中的索引（行标签）作为其连接键。 对于具有 MultiIndex（分层）的 DataFrame，级别数必须与右侧 DataFrame 中的连接键数相匹配。<br />
+right_index 与 left_index 功能相似。</li>
+<li>以 index 为链接键，需要同时设置 left_index= True 和 right_index=True，或者 left_index 设置的同时，right_on 指定某个 Key。总的来说就是需要指定 left、right 链接的键，可以同时是 key、index 或者混合使用。</li>
+</ol>
+<h2 id="dataframe-遍历"><a class="anchor" href="#dataframe-遍历">#</a> DataFrame 遍历</h2>
+<p>参考文档：<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI3NTc1ODk1L2FydGljbGUvZGV0YWlscy85MDAzNDAzNw==">https://blog.csdn.net/qq_27575895/article/details/90034037</span></p>
+<ol>
+<li>
+<p>iterrow (), 是实际应用中使用最频繁的遍历方式，它可以将行索引和每行数据（series）一起遍历，但是无法在遍历中修改对象的值<br />
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> ind,row <span class="keyword">in</span> df.iterrows():</span><br><span class="line">    <span class="built_in">print</span>(ind,row,row[<span class="string">&#x27;key_name&#x27;</span>])</span><br></pre></td></tr></table></figure><br />
+ind 返回本行索引，row 返回本行数据（类型为 series），如果需要定位到单个元素，row ['key_name'] 即可</p>
+</li>
+<li>
+<p>指定行或列的遍历可使用 lambda 函数，例如：<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">df[<span class="string">&#x27;key_name&#x27;</span>] = df[<span class="string">&#x27;key_name&#x27;</span>].apply(<span class="keyword">lambda</span> x: <span class="built_in">int</span>(x))</span><br></pre></td></tr></table></figure></p>
+</li>
+</ol>
 
   </div>
 
@@ -171,9 +200,9 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2022-07-08 22:38:05" itemprop="dateModified" datetime="2022-07-08T22:38:05+08:00">2022-07-08</time>
+    <time title="修改时间：2022-07-09 22:52:26" itemprop="dateModified" datetime="2022-07-09T22:52:26+08:00">2022-07-09</time>
   </span>
-  <span id="2022/07/07/pandas数据处理/" class="item leancloud_visitors" data-flag-title="pandas数据处理" title="阅读次数">
+  <span id="2022/07/07/pandas数据处理/" class="item leancloud_visitors" data-flag-title="pandas相关知识总结" title="阅读次数">
       <span class="icon">
         <i class="ic i-eye"></i>
       </span>
@@ -193,16 +222,6 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
         <img data-src="/images/wechatpay.png" alt="Ayao 微信支付">
         <p>微信支付</p>
       </div>
-      
-      <div>
-        <img data-src="/images/alipay.png" alt="Ayao 支付宝">
-        <p>支付宝</p>
-      </div>
-      
-      <div>
-        <img data-src="/images/paypal.png" alt="Ayao 贝宝">
-        <p>贝宝</p>
-      </div>
   </div>
 </div>
 
@@ -215,7 +234,7 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://ayao-china.github.io/2022/07/07/pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" title="pandas数据处理">https://ayao-china.github.io/2022/07/07/pandas数据处理/</a>
+    <a href="https://ayao-china.github.io/2022/07/07/pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" title="pandas相关知识总结">https://ayao-china.github.io/2022/07/07/pandas数据处理/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -266,11 +285,11 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pandas-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text"> pandas 数据处理</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pandas%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text"> pandas 相关知识总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#merge-%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text"> merge 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dataframe-%E9%81%8D%E5%8E%86"><span class="toc-number">1.3.</span> <span class="toc-text"> DataFrame 遍历</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/2022/07/07/Python%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/" rel="bookmark" title="Python入门基础">Python入门基础</a></li><li class="active"><a href="/2022/07/07/pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="bookmark" title="pandas数据处理">pandas数据处理</a></li>
+          <li class="active"><a href="/2022/07/07/pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="bookmark" title="pandas相关知识总结">pandas相关知识总结</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -290,7 +309,7 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">4</span>
+        <span class="count">5</span>
         <span class="name">分类</span>
       </a>
     </div>
@@ -373,10 +392,10 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="分类于 数据分析">数据分析</a>
+<a href="/categories/HEXO/" title="分类于 HEXO">HEXO</a>
 </div>
 
-    <span><a href="/2022/07/07/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90rfm%E6%A8%A1%E5%9E%8B/" title="rfm模型-电商相关">rfm模型-电商相关</a></span>
+    <span><a href="/2022/07/08/HEXO%E6%8C%87%E4%BB%A4/" title="HEXO指令">HEXO指令</a></span>
   </li>
 
       
@@ -386,7 +405,7 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
 <a href="/categories/python/" title="分类于 python">python</a>
 </div>
 
-    <span><a href="/2022/07/07/pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" title="pandas数据处理">pandas数据处理</a></span>
+    <span><a href="/2022/07/07/Python%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/" title="Python入门基础">Python入门基础</a></span>
   </li>
 
       
@@ -404,19 +423,21 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
     
 <div class="breadcrumb">
 <a href="/categories/python/" title="分类于 python">python</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/python/pandas/" title="分类于 pandas">pandas</a>
 </div>
 
-    <span><a href="/2022/07/07/Python%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/" title="Python入门基础">Python入门基础</a></span>
+    <span><a href="/2022/07/07/pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" title="pandas相关知识总结">pandas相关知识总结</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/HEXO/" title="分类于 HEXO">HEXO</a>
+<a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="分类于 数据分析">数据分析</a>
 </div>
 
-    <span><a href="/2022/07/08/HEXO%E6%8C%87%E4%BB%A4/" title="HEXO指令">HEXO指令</a></span>
+    <span><a href="/2022/07/07/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90rfm%E6%A8%A1%E5%9E%8B/" title="rfm模型-电商相关">rfm模型-电商相关</a></span>
   </li>
 
   </ul>
@@ -441,13 +462,13 @@ Ayao's Blog = 阿尧 = 有空常来玩~</title>
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">1k 字</span>
+    <span title="站点总字数">4k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">1 分钟</span>
+    <span title="站点阅读时长">3 分钟</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
