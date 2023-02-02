@@ -1,0 +1,571 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="阿尧" href="https://ayao-china.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="阿尧" href="https://ayao-china.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="阿尧" href="https://ayao-china.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+
+<link rel="canonical" href="https://ayao-china.github.io/2022/07/12/DataFrame%E8%BD%AC%E7%BD%AE/">
+
+
+
+  <title>
+DataFrame转置 - pandas - PYTHON |
+Ayao's Blog = 阿尧 = 惟江上之清风，与山间之明月，耳得之为声，目遇之而成色，取之无禁用之不竭</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">DataFrame转置
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-07-12 21:21:51">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-07-12T21:21:51+08:00">2022-07-12</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Ayao's Blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="http://tva1.sinaimg.cn/large/006UraCCly1h3zw9tub3mj32yo1o0nph.jpg">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/PYTHON/" itemprop="item" rel="index" title="分类于 PYTHON"><span itemprop="name">PYTHON</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/PYTHON/pandas/" itemprop="item" rel="index" title="分类于 pandas"><span itemprop="name">pandas</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://ayao-china.github.io/2022/07/12/DataFrame%E8%BD%AC%E7%BD%AE/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/wallhaven-l3xk6q.jpg">
+    <meta itemprop="name" content="Ayao">
+    <meta itemprop="description" content="惟江上之清风，与山间之明月，耳得之为声，目遇之而成色，取之无禁用之不竭, 电子厂初级技工">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="阿尧">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="dataframe转置"><a class="anchor" href="#dataframe转置">#</a> DataFrame 转置</h1>
+<h2 id="前言"><a class="anchor" href="#前言">#</a> 前言：</h2>
+<p>Dataframe 转置有其内置的函数，也可以用其他较为灵活的方法实现，以下总结了三种转置的方法，对应不同的需求场景，参考文档：<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vdHJhZGl0aW9uYWwvcC8xMTk2NzM2MC5odG1sJUVGJUJDJThDaHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzE4MzUxMTU3L2FydGljbGUvZGV0YWlscy8xMDU5MzE1NDc=">https://www.cnblogs.com/traditional/p/11967360.html，https://blog.csdn.net/qq_18351157/article/details/105931547</span></p>
+<h2 id="内置函数"><a class="anchor" href="#内置函数">#</a> 内置函数</h2>
+<p>df.T 和 df.transpose () 都是是 pandas 内置的转置方法，但是区别在于 transpose () 可以有更多参数可以调节，例如：df.transpose (copy=True)<br />
+<figure class="highlight python"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(&#123;<span class="string">&quot;A&quot;</span>: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], <span class="string">&quot;B&quot;</span>: [<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]&#125;)</span><br><span class="line"><span class="built_in">print</span>(df)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment">#    A  B  </span></span><br><span class="line"><span class="comment"># 0  1  5</span></span><br><span class="line"><span class="comment"># 1  2  6</span></span><br><span class="line"><span class="comment"># 2  3  7</span></span><br><span class="line"><span class="comment"># 3  4  8</span></span><br><span class="line">df = df.T</span><br><span class="line"><span class="built_in">print</span>(df)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment">#    0  1  2  3</span></span><br><span class="line"><span class="comment"># A  1  2  3  4</span></span><br><span class="line"><span class="comment"># B  5  6  7  8</span></span><br><span class="line">df = df.transpose()</span><br></pre></td></tr></table></figure><br />
+ 这两个函数灵活性都不高，只能全列全行转置。</p>
+<h2 id="unstackstack-方法"><a class="anchor" href="#unstackstack-方法">#</a> unstack/stack 方法</h2>
+<p>Dataframe 中如果有多重索引，unstack 方法可用于收缩索引数据，使其变成新的一列，例如</p>
+<p><figure class="highlight python"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment"># one  a   1.0</span></span><br><span class="line"><span class="comment">#      b   2.0</span></span><br><span class="line"><span class="comment"># two  a   3.0</span></span><br><span class="line"><span class="comment">#      b   4.0</span></span><br><span class="line"><span class="comment"># dtype: float64</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line">s.unstack(level=-<span class="number">1</span>,fill_value=<span class="literal">None</span>)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br><span class="line"><span class="comment">#      a   b</span></span><br><span class="line"><span class="comment"># one  1.0  2.0</span></span><br><span class="line"><span class="comment"># two  3.0  4.0</span></span><br></pre></td></tr></table></figure><br />
+ 参数 level 默认为 - 1，即默认收缩最后一个索引层级，fill_value 指填充空值，默认为 None<br />
+ 所以，实现指定行的转置为列，思路可以是先将需要转置的值转化为索引，再通过 unstack 方法，使其变成新的一列，以下是一个例子；<br />
+在最开始，df 的索引是默认的，重新将 id 设置为 df 的索引后，只剩下 A 和 B 两列，unstack 将指定层级（至少两级索引，否则索引名为空值，交换后的新列名也是空）的索引名与所有列名交换，使指定索引名变为新列名<br />
+ stack 方法的作用与 unstack 相反，相当于使索引数据炸裂，所以连续使用两次 unstack 的结果与使用一次 stack 的结果是一致的。</p>
+<p><figure class="highlight python"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(&#123;<span class="string">&quot;A&quot;</span>: [<span class="string">&#x27;x&#x27;</span>,<span class="string">&#x27;y&#x27;</span>,<span class="string">&#x27;z&#x27;</span>,<span class="string">&#x27;o&#x27;</span>],<span class="string">&quot;B&quot;</span>: [<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>],<span class="string">&quot;id&quot;</span>:[<span class="string">&#x27;001&#x27;</span>,<span class="string">&#x27;003&#x27;</span>,<span class="string">&#x27;004&#x27;</span>,<span class="string">&#x27;002&#x27;</span>]&#125;)</span><br><span class="line"><span class="built_in">print</span>(df.index)</span><br><span class="line"><span class="comment"># &gt;&gt;RangeIndex(start=0, stop=4, step=1)</span></span><br><span class="line">df.set_index([<span class="string">&quot;id&quot;</span>],inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(df)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment">#      A  B</span></span><br><span class="line"><span class="comment"># id       </span></span><br><span class="line"><span class="comment"># 001  x  5</span></span><br><span class="line"><span class="comment"># 003  y  6</span></span><br><span class="line"><span class="comment"># 004  z  7</span></span><br><span class="line"><span class="comment"># 002  o  8</span></span><br><span class="line">df = df.unstack(level=-<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(df)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment">#    id </span></span><br><span class="line"><span class="comment"># A  001    x</span></span><br><span class="line"><span class="comment">#    003    y</span></span><br><span class="line"><span class="comment">#    004    z</span></span><br><span class="line"><span class="comment">#    002    o</span></span><br><span class="line"><span class="comment"># B  001    5</span></span><br><span class="line"><span class="comment">#    003    6</span></span><br><span class="line"><span class="comment">#    004    7</span></span><br><span class="line"><span class="comment">#    002    8</span></span><br><span class="line"><span class="comment"># dtype: object</span></span><br><span class="line">df = df.reset_index()</span><br><span class="line">df.columns = [<span class="string">&quot;class&quot;</span>,<span class="string">&quot;id&quot;</span>,<span class="string">&quot;values&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(df)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment">#    class  id values</span></span><br><span class="line"><span class="comment"># 0     A  001      x</span></span><br><span class="line"><span class="comment"># 1     A  003      y</span></span><br><span class="line"><span class="comment"># 2     A  004      z</span></span><br><span class="line"><span class="comment"># 3     A  002      o</span></span><br><span class="line"><span class="comment"># 4     B  001      5</span></span><br><span class="line"><span class="comment"># 5     B  003      6</span></span><br><span class="line"><span class="comment"># 6     B  004      7</span></span><br><span class="line"><span class="comment"># 7     B  002      8</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="pivot-pivot_table方法"><a class="anchor" href="#pivot-pivot_table方法">#</a> pivot /pivot_table 方法</h2>
+<p>pivot/pivot_table 可以通过设置列值，列名，索引对整个表的结构进行改变，pivot_table 则可以使用聚合方法对数据进行统计和计算，入参数据如下：<br />
+def pivot(self, index=None, columns=None, values=None) ；<br />
+def pivot_table(self, values=None, index=None, columns=None, aggfunc=&quot;mean&quot;, fill_value=None, margins=False, dropna=True, margins_name=&quot;All&quot;, observed=False)，<br />
+使用 pviot 方法进行转置的思路可以是：将需要转置的值设置为转成列名 columns, 其他不变的列设置为 values<br />
+ 以下例子通过 pivot，还原了 df 最开始的结构</p>
+<p><figure class="highlight python"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(df)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment">#    class  id values</span></span><br><span class="line"><span class="comment"># 0     A  001      x</span></span><br><span class="line"><span class="comment"># 1     A  003      y</span></span><br><span class="line"><span class="comment"># 2     A  004      z</span></span><br><span class="line"><span class="comment"># 3     A  002      o</span></span><br><span class="line"><span class="comment"># 4     B  001      5</span></span><br><span class="line"><span class="comment"># 5     B  003      6</span></span><br><span class="line"><span class="comment"># 6     B  004      7</span></span><br><span class="line"><span class="comment"># 7     B  002      8</span></span><br><span class="line">df = df.pivot(values=[<span class="string">&quot;values&quot;</span>],columns=<span class="string">&quot;class&quot;</span>,index=[<span class="string">&quot;id&quot;</span>])</span><br><span class="line">df.reset_index(inplace=<span class="literal">True</span>)</span><br><span class="line">df.columns = [<span class="string">&quot;id&quot;</span>,<span class="string">&quot;A&quot;</span>,<span class="string">&quot;B&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(df)</span><br><span class="line"><span class="comment"># &gt;&gt;</span></span><br><span class="line"><span class="comment">#     id  A  B</span></span><br><span class="line"><span class="comment"># 0  001  x  5</span></span><br><span class="line"><span class="comment"># 1  002  o  8</span></span><br><span class="line"><span class="comment"># 2  003  y  6</span></span><br><span class="line"><span class="comment"># 3  004  z  7</span></span><br></pre></td></tr></table></figure></p>
+
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-02-02 14:09:56" itemprop="dateModified" datetime="2023-02-02T14:09:56+08:00">2023-02-02</time>
+  </span>
+  <span id="2022/07/12/DataFrame转置/" class="item leancloud_visitors" data-flag-title="DataFrame转置" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Ayao 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Ayao 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Ayao 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Ayao <i class="ic i-at"><em>@</em></i>阿尧
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://ayao-china.github.io/2022/07/12/DataFrame%E8%BD%AC%E7%BD%AE/" title="DataFrame转置">https://ayao-china.github.io/2022/07/12/DataFrame转置/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/07/08/%E3%80%8A%E9%A3%98%E3%80%8B-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="prev" data-background-image="http:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006UraCCly1h44i8hewnmj31hc0u07e0.jpg" title="《飘》 读书笔记">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 读书笔记</span>
+  <h3>《飘》 读书笔记</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2022/08/05/%E3%80%8A%E5%A4%8D%E6%B4%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url" rel="next" data-background-image="http:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;large&#x2F;006UraCCly1h4y4tiagxtj31hc0u0trj.jpg" title="《复活》读书笔记">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 读书笔记</span>
+  <h3>《复活》读书笔记</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#dataframe%E8%BD%AC%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text"> DataFrame 转置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text"> 前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text"> 内置函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unstackstack-%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text"> unstack&#x2F;stack 方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pivot-pivot_table%E6%96%B9%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text"> pivot &#x2F;pivot_table 方法</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2022/07/12/DataFrame%E8%BD%AC%E7%BD%AE/" rel="bookmark" title="DataFrame转置">DataFrame转置</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Ayao"
+      data-src="/images/wallhaven-l3xk6q.jpg">
+  <p class="name" itemprop="name">Ayao</p>
+  <div class="description" itemprop="description">电子厂初级技工</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">10</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">5</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/links/" rel="section"><i class="ic i-magic"></i>友链</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于我</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/07/08/%E3%80%8A%E9%A3%98%E3%80%8B-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2022/08/05/%E3%80%8A%E5%A4%8D%E6%B4%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="分类于 读书笔记">读书笔记</a>
+</div>
+
+    <span><a href="/2023/02/02/%E3%80%8A%E4%B8%80%E9%A3%9F%E4%B8%80%E5%91%B3%E3%80%8B-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="《一食一味》 读书笔记">《一食一味》 读书笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" title="分类于 数据仓库">数据仓库</a>
+</div>
+
+    <span><a href="/2022/09/12/pgsql%20%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2/" title="PostgreSQL 文本模糊查询">PostgreSQL 文本模糊查询</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/PYTHON/" title="分类于 PYTHON">PYTHON</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/PYTHON/pandas/" title="分类于 pandas">pandas</a>
+</div>
+
+    <span><a href="/2022/07/12/DataFrame%E8%BD%AC%E7%BD%AE/" title="DataFrame转置">DataFrame转置</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" title="分类于 数据仓库">数据仓库</a>
+</div>
+
+    <span><a href="/2023/01/31/PostgreSQL%E5%A4%84%E7%90%86%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE/" title="PostgreSQL处理文本数据">PostgreSQL处理文本数据</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="分类于 读书笔记">读书笔记</a>
+</div>
+
+    <span><a href="/2022/07/08/%E3%80%8A%E9%A3%98%E3%80%8B-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="《飘》 读书笔记">《飘》 读书笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="分类于 读书笔记">读书笔记</a>
+</div>
+
+    <span><a href="/2022/08/05/%E3%80%8A%E5%A4%8D%E6%B4%BB%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="《复活》读书笔记">《复活》读书笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="分类于 数据分析">数据分析</a>
+</div>
+
+    <span><a href="/2023/01/07/sklearn%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Sklearn 算法学习笔记">Sklearn 算法学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/PYTHON/" title="分类于 PYTHON">PYTHON</a>
+</div>
+
+    <span><a href="/2022/07/07/Python%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/" title="Python基础学习笔记">Python基础学习笔记</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="分类于 数据分析">数据分析</a>
+</div>
+
+    <span><a href="/2022/10/05/taitnic/" title="Kaggle Titanic">Kaggle Titanic</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="分类于 读书笔记">读书笔记</a>
+</div>
+
+    <span><a href="/2023/02/02/%E3%80%8A%E7%BD%AA%E4%B8%8E%E7%BD%9A%E3%80%8B-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" title="《罪与罚》 读书笔记">《罪与罚》 读书笔记</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Ayao @ Ayao's Blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">23k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">21 分钟</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/07/12/DataFrame转置/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
